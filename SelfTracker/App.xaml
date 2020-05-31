@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="SelfTracker.App">
+    <Application.Resources>
+        <!--<x:String x:Key="CheckIcon">&#xf00c;</x:String>-->
+        <x:String x:Key="PlusIcon">&#xf055;</x:String>
+        <x:String x:Key="DownArrow">&#xf063;</x:String>
+        <x:String x:Key="CloseIcon">&#xf410;</x:String>
+
+        <Style TargetType="NavigationPage">
+            <Setter Property="BarBackgroundColor" Value="#ff0037"></Setter>
+            <Setter Property="BarTextColor" Value="White"></Setter>
+        </Style>
+        <Style TargetType="Label" x:Key="ErrorLabelStyle">
+            <Setter Property="TextColor" Value="Red"></Setter>
+            <Setter Property="FontSize">
+                <OnPlatform>
+                    <On Platform="iOS" Value="6"/>
+                    <On Platform="Android" Value="6"/>
+                </OnPlatform>
+            </Setter>
+        </Style>
+    </Application.Resources>
+</Application>

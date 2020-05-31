@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:controls="clr-namespace:SelfTracker.CustomControls" 
+             xmlns:vm="clr-namespace:SelfTracker.ViewModels" 
+             mc:Ignorable="d"
+             x:Class="SelfTracker.Views.AddEventPage" x:Name="EventPage" Title="Olay Ekle" NavigationPage.HasBackButton="True">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Kaydet" Command="{Binding SaveEventCommand}"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ContentPage.BindingContext>
+        <vm:AddEventViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+
+            <StackLayout>
+                <Label 
+                    Text="Tarih" 
+                    FontSize="Small"
+                    Margin="10,10,0,0"/>
+                <Frame
+                        Padding="10,0,0,0"
+                        BackgroundColor="White"
+                        
+                        CornerRadius="15"
+                        
+                        HeightRequest="50">
+                    <controls:BorderlessEntry Placeholder="Tarih"
+                    Text="{Binding SelectedDate}" />
+                </Frame>
+            </StackLayout>
+            <StackLayout>
+                <Label 
+                    Text="Ad" 
+                    FontSize="Small"
+                    Margin="10,10,0,0"/>
+                <Frame
+                        Padding="10,0,0,0"
+                        BackgroundColor="White"
+                        
+                        CornerRadius="15"
+                        
+                        HeightRequest="50">
+                    <controls:BorderlessEntry Placeholder="Adı"
+                    Text="{Binding Event.Name,Mode=TwoWay}" />
+                </Frame>
+                <Label 
+                    x:Name="Event_NameError"
+                    IsVisible="false"
+                    Style="{StaticResource ErrorLabelStyle}"   />
+            </StackLayout>
+            <StackLayout>
+                <Label 
+                    Text="Açıklama" 
+                    FontSize="Small"
+                    Margin="10,10,0,0"/>
+                <Frame
+                        Padding="10,0,0,0"
+                        BackgroundColor="White"
+                       
+                        CornerRadius="15"
+                        
+                        HeightRequest="50">
+                    <controls:BorderlessEntry Placeholder="Açıklaması"
+                    Text="{Binding Event.Description,Mode=TwoWay}" />
+                </Frame>
+            </StackLayout>
+
+            <!--<Picker Title="Select a monkey"
+        TitleColor="Red"
+        ItemsSource="{Binding Monkeys}"
+        ItemDisplayBinding="{Binding Name}"
+        SelectedItem="{Binding SelectedMonkey}" />-->
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

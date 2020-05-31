@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView
+    x:Class="SelfTracker.Controls.CalendarFooter"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Grid
+        HeightRequest="40"
+        HorizontalOptions="FillAndExpand"
+        VerticalOptions="FillAndExpand">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <StackLayout Orientation="Horizontal">
+            <Label
+            FontAttributes="Bold"
+            FontSize="Body"
+            Text="{Binding SelectedDateText}"
+            TextColor="{Binding SelectedDateColor}"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="CenterAndExpand"
+            VerticalTextAlignment="Center" />
+            <Label FontFamily="FontAwesome" 
+                   Text="{StaticResource PlusIcon}" 
+                   FontAttributes="Bold" 
+                   TextColor="DarkCyan" 
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="Center"
+                   BackgroundColor="Transparent"
+                   FontSize="Large">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="AddEvent_Tapped"></TapGestureRecognizer>
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+        <Label
+            x:Name="showHideLabel"
+            Grid.Column="1"
+            Margin="0,0,15,0"
+            BackgroundColor="Transparent"
+            FontAttributes="Bold"
+            FontFamily="FontAwesome"
+            FontSize="25"
+            HorizontalOptions="End"
+            IsVisible="{Binding FooterArrowVisible}"
+            Text="&#xf062;"
+            TextColor="DarkCyan"
+            VerticalOptions="CenterAndExpand"
+            VerticalTextAlignment="Center">
+            <Label.Triggers>
+                <DataTrigger
+                    Binding="{Binding CalendarSectionShown}"
+                    TargetType="Label"
+                    Value="False">
+                    <Setter Property="Text" Value="&#xf063;" />
+                </DataTrigger>
+            </Label.Triggers>
+        </Label>
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding ShowHideCalendarCommand}" />
+        </Grid.GestureRecognizers>
+    </Grid>
+</ContentView>
