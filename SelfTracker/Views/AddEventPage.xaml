@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:controls="clr-namespace:SelfTracker.CustomControls" 
-             xmlns:vm="clr-namespace:SelfTracker.ViewModels" 
+             xmlns:vm="clr-namespace:SelfTracker.ViewModels" xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              mc:Ignorable="d"
              x:Class="SelfTracker.Views.AddEventPage" x:Name="EventPage" Title="Olay Ekle" NavigationPage.HasBackButton="True">
     
@@ -38,16 +38,16 @@
                     Text="Ad" 
                     FontSize="Small"
                     Margin="10,10,0,0"/>
-                <Frame
+                <yummy:PancakeView
                         Padding="10,0,0,0"
                         BackgroundColor="White"
-                        
+                        BorderThickness="1"
                         CornerRadius="15"
-                        
+                        Elevation="3"
                         HeightRequest="50">
                     <controls:BorderlessEntry Placeholder="Adı"
                     Text="{Binding Event.Name,Mode=TwoWay}" />
-                </Frame>
+                </yummy:PancakeView>
                 <Label 
                     x:Name="Event_NameError"
                     IsVisible="false"
@@ -58,16 +58,16 @@
                     Text="Açıklama" 
                     FontSize="Small"
                     Margin="10,10,0,0"/>
-                <Frame
+                <yummy:PancakeView
                         Padding="10,0,0,0"
                         BackgroundColor="White"
-                       
+                        BorderThickness="1"
                         CornerRadius="15"
-                        
+                        Elevation="3"
                         HeightRequest="50">
                     <controls:BorderlessEntry Placeholder="Açıklaması"
                     Text="{Binding Event.Description,Mode=TwoWay}" />
-                </Frame>
+                </yummy:PancakeView>
             </StackLayout>
 
             <!--<Picker Title="Select a monkey"
