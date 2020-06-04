@@ -14,7 +14,7 @@ namespace SelfTracker
         public App()
         {
             VersionTracking.Track();
-            
+
             Device.SetFlags(new[] { "SwipeView_Experimental" });
 
             DependencyService.Register<DataService>();
@@ -24,6 +24,7 @@ namespace SelfTracker
             DependencyService.Register<DayService>();
             DependencyService.Register<EventService>();
             InitSQLite();
+
 
             InitializeComponent();
             MainPage = new NavigationPage(new CalendarPage());

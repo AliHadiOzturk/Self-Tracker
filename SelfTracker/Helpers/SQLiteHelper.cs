@@ -29,6 +29,14 @@ namespace SelfTracker.Helpers
             con = lazyInitializer.Value;
             if (VersionTracking.IsFirstLaunchEver)
                 InitializeAsync().SafeFireAndForget(continueOnCapturedContext: false);
+            if (Convert.ToDouble(VersionTracking.CurrentVersion) > Convert.ToDouble(VersionTracking.PreviousVersion))
+            {
+                
+            }
+        }
+        async Task ProcessChanges()
+        {
+            //Connection.CreateIndexAsync<Day>
         }
         async Task InitializeAsync()
         {

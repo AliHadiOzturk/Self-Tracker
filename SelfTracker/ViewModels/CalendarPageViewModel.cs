@@ -30,6 +30,10 @@ namespace SelfTracker.ViewModels
         public IAsyncCommand SwipeRightCommand => new AsyncCommand(SwipeRight);
         public ICommand SwipeUpCommand => new Xamarin.Forms.Command(() => { MonthYear = DateTime.Today; });
         public IAsyncCommand AddEventCommand => new AsyncCommand(AddEvent);
+        public IAsyncCommand ChangeEmojiCommand => new AsyncCommand(ChangeEmoji);
+
+
+
         public IAsyncCommand<Event> DeleteEventCommand => new AsyncCommand<Event>(DeleteEvent);
         public IAsyncCommand ChangeDateCommand => new AsyncCommand(ChangeDate);
 
@@ -65,6 +69,15 @@ namespace SelfTracker.ViewModels
             get { return _yearPickerVisible; }
             set { SetProperty(ref _yearPickerVisible, value); }
         }
+
+        private string _emoji;
+
+        public string Emoji
+        {
+            get { return _emoji; }
+            set { SetProperty(ref _emoji, value); }
+        }
+
 
         public CalendarPageViewModel()
         {
@@ -108,6 +121,14 @@ namespace SelfTracker.ViewModels
         {
             await EventService.Delete(data);
             await GetEvents();
+        }
+
+        private async Task ChangeEmoji()
+        {
+            var result = await App.Current.MainPage.DisplayPromptAsync("Emoji seçiniz", "Günün mood'unu seçiniz :)", cancel: "Kapat", placeholder: "Emoji", maxLength: 7, keyboard: Keyboard.Chat);
+            if (!string.IsNullOrEmpty(result))
+                MessagingCenter.Send<CalendarPageViewModel, string>(this, "EmojiChanged", result);
+            //Emoji = result;
         }
 
         private Task ChangeDate()

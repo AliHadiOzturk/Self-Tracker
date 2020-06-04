@@ -57,7 +57,7 @@
 
             <plugin:Calendar.FooterSectionTemplate>
                 <DataTemplate>
-                    <controls:CalendarFooter AddEventCommand="{Binding BindingContext.AddEventCommand,Source={x:Reference Calendar}}" />
+                    <controls:CalendarFooter ChangeEmojiCommand="{Binding BindingContext.ChangeEmojiCommand,Source={x:Reference Calendar}}" AddEventCommand="{Binding BindingContext.AddEventCommand,Source={x:Reference Calendar}}" />
                 </DataTemplate>
             </plugin:Calendar.FooterSectionTemplate>
 
