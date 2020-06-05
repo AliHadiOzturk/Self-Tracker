@@ -29,14 +29,14 @@ namespace SelfTracker.Helpers
             con = lazyInitializer.Value;
             if (VersionTracking.IsFirstLaunchEver)
                 InitializeAsync().SafeFireAndForget(continueOnCapturedContext: false);
-            if (Convert.ToDouble(VersionTracking.CurrentVersion) > Convert.ToDouble(VersionTracking.PreviousVersion))
+            if (VersionTracking.IsFirstLaunchForCurrentVersion)
             {
-                
+                ProcessChanges().SafeFireAndForget(continueOnCapturedContext: false);
             }
         }
         async Task ProcessChanges()
         {
-            //Connection.CreateIndexAsync<Day>
+            var res = await Connection.CreateTableAsync<DayModel>(CreateFlags.None);
         }
         async Task InitializeAsync()
         {

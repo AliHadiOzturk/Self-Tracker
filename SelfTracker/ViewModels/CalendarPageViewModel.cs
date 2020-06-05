@@ -24,7 +24,7 @@ namespace SelfTracker.ViewModels
         public EventService EventService { get; set; }
         public DataService DataService { get; set; }
 
-        public ICommand DayTappedCommand => new Xamarin.Forms.Command((date) => { YearPickerVisible = false; });
+        public ICommand DayTappedCommand => new Xamarin.Forms.Command((date) => { YearPickerVisible = false; GetDayEmoji((DateTime)date); });
 
         public IAsyncCommand SwipeLeftCommand => new AsyncCommand(SwipeLeft);
         public IAsyncCommand SwipeRightCommand => new AsyncCommand(SwipeRight);
@@ -44,7 +44,11 @@ namespace SelfTracker.ViewModels
         public DateTime MonthYear
         {
             get => _monthYear;
-            set => SetProperty(ref _monthYear, value);
+            set
+            {
+                GetEventHandler();
+                SetProperty(ref _monthYear, value);
+            }
         }
 
         private DateTime _selectedDate = DateTime.Today;
@@ -91,8 +95,13 @@ namespace SelfTracker.ViewModels
             DataService = DependencyService.Get<DataService>();
             EventService = DependencyService.Get<EventService>();
             await GetEvents();
+            GetDayEmoji(SelectedDate);
 
         }
+
+        private async void GetDayEmoji(DateTime date) => EmojiSetted(await DataService.GetDayEmoji(date));
+
+        private async void GetEventHandler() => await GetEvents();
 
         private async Task GetEvents()
         {
@@ -125,10 +134,18 @@ namespace SelfTracker.ViewModels
 
         private async Task ChangeEmoji()
         {
-            var result = await App.Current.MainPage.DisplayPromptAsync("Emoji seçiniz", "Günün mood'unu seçiniz :)", cancel: "Kapat", placeholder: "Emoji", maxLength: 7, keyboard: Keyboard.Chat);
+            var result = await App.Current.MainPage.DisplayPromptAsync("Emoji seçiniz", "Günün mood'unu seçiniz :) Lütfen sadece emoji giriniz. ", "Tamam", "İptal", maxLength: 3, keyboard: Keyboard.Chat);
             if (!string.IsNullOrEmpty(result))
-                MessagingCenter.Send<CalendarPageViewModel, string>(this, "EmojiChanged", result);
+            {
+                await DataService.SetEmojiOnDay(SelectedDate, result);
+                EmojiSetted(result);
+            }
             //Emoji = result;
+        }
+
+        private void EmojiSetted(string emoji)
+        {
+            MessagingCenter.Send<CalendarPageViewModel, string>(this, "EmojiChanged", emoji);
         }
 
         private Task ChangeDate()

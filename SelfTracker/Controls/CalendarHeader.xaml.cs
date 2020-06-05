@@ -10,6 +10,8 @@ namespace SelfTracker.Controls
         public static BindableProperty ChangeDateCommandProperty =
             BindableProperty.Create(nameof(ChangeDateCommand), typeof(IAsyncCommand), typeof(CalendarHeader), null);
 
+        //public static BindableProperty PrevMonthCommand
+
         public IAsyncCommand ChangeDateCommand
         {
             get => (IAsyncCommand)GetValue(ChangeDateCommandProperty);

@@ -17,12 +17,14 @@ namespace SelfTracker.Services
         public MonthService MonthService { get; set; }
         public YearService YearService { get; set; }
         public EventService EventService { get; set; }
+        public SQLiteHelper SQLHelper { get; set; }
         public DataService()
         {
             this.DayService = DependencyService.Get<DayService>();
             this.MonthService = DependencyService.Get<MonthService>();
             this.YearService = DependencyService.Get<YearService>();
             this.EventService = DependencyService.Get<EventService>();
+            this.SQLHelper = DependencyService.Get<SQLiteHelper>();
         }
 
         public async Task<int> CreateRelationsAndSaveEvent(Event _event, DateTime date)
@@ -52,11 +54,6 @@ namespace SelfTracker.Services
         public async Task<List<DataWrapper>> GetEvents(DateTime selectedDate)
         {
             List<DataWrapper> response = new List<DataWrapper>();
-            //var events = await EventService.GetAll();
-            //foreach (var item in events)
-            //{
-            //    var day = await DayService.GetById(item.DayId);
-            //}
             var year = await YearService.GetByYear(selectedDate.Year);
             if (year != null)
             {
@@ -96,6 +93,42 @@ namespace SelfTracker.Services
             }
 
             return response;
+        }
+
+
+        public async Task SetEmojiOnDay(DateTime date, string emoji)
+        {
+            var year = await YearService.GetByYear(date.Year);
+            if (year == null)
+                year = await YearService.Save(new YearModel() { Year = date.Year });
+
+            var month = await MonthService.GetByMonthAndYearId(date.Month, year.Id);
+            if (month == null)
+                month = await MonthService.Save(new MonthModel() { Month = date.Month, YearId = year.Id });
+
+            var day = await DayService.GetByDayAndMonthId(date.Day, month.Id);
+            if (day == null)
+                await DayService.Save(new DayModel() { Day = date.Day, MonthId = month.Id, Date = date, Emoji = emoji });
+            else
+                await DayService.SetEmoji(emoji, day.Id);
+            //await DayService.SetEmoji(emoji, day.Id);
+        }
+
+        public async Task<string> GetDayEmoji(DateTime date)
+        {
+            var year = await YearService.GetByYear(date.Year);
+            if (year != null)
+            {
+                var month = await MonthService.GetByMonthAndYearId(date.Month, year.Id);
+                if (month != null)
+                {
+                    var day = await DayService.GetByDayAndMonthId(date.Day, month.Id);
+                    if (day != null)
+                        return day.Emoji;
+
+                }
+            }
+            return "☺";
         }
     }
 

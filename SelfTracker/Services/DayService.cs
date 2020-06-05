@@ -34,6 +34,13 @@ namespace SelfTracker.Services
 
         public async Task<DayModel> GetById(int id) => await Connection.Table<DayModel>().Where(item => item.Id == id).FirstOrDefaultAsync();
 
+        public async Task SetEmoji(string emoji, int dayId)
+        {
+            var day = await Connection.Table<DayModel>().Where(item => item.Id == dayId).FirstOrDefaultAsync();
+            day.Emoji = emoji;
+            var i = await Connection.UpdateAsync(day, typeof(DayModel));
+        }
+
         public async Task<List<DayModel>> GetFirstDaysByMonthId(int monthId)
             => await Connection.Table<DayModel>().Where(item => item.MonthId == monthId && item.Day < 10).ToListAsync();
 

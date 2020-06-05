@@ -12,6 +12,7 @@ namespace SelfTracker.Models
         public DateTime Date { get; set; }
         //public List<Event> Events { get; set; }
         public int Day { get; set; }
+        public string Emoji { get; set; }
         public int MonthId { get; set; }
     }
 
