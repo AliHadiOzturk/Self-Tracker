@@ -109,7 +109,8 @@ namespace SelfTracker.ViewModels
             var dataWrappers = await DataService.GetEvents(this.MonthYear);
             foreach (var data in dataWrappers)
             {
-                Events.Add(data.Day.Date, data.Events);
+                if (!Events.ContainsKey(data.Day.Date))
+                    Events.Add(data.Day.Date, data.Events);
             }
         }
 
@@ -145,7 +146,11 @@ namespace SelfTracker.ViewModels
 
         private void EmojiSetted(string emoji)
         {
-            MessagingCenter.Send<CalendarPageViewModel, string>(this, "EmojiChanged", emoji);
+
+            if (string.IsNullOrEmpty(emoji))
+                MessagingCenter.Send<CalendarPageViewModel, string>(this, "EmojiChanged", "☺");
+            else
+                MessagingCenter.Send<CalendarPageViewModel, string>(this, "EmojiChanged", emoji);
         }
 
         private Task ChangeDate()
@@ -157,12 +162,12 @@ namespace SelfTracker.ViewModels
         private async Task SwipeLeft()
         {
             MonthYear = MonthYear.AddMonths(1);
-            await GetEvents();
+            //await GetEvents();
         }
         private async Task SwipeRight()
         {
             MonthYear = MonthYear.AddMonths(-1);
-            await GetEvents();
+            //await GetEvents();
         }
 
         //private async Task DayTapped(DateTime date)
