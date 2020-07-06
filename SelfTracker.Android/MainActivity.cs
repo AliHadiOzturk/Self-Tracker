@@ -90,13 +90,13 @@ namespace SelfTracker.Droid
                     .SetUsage(AudioUsageKind.Notification).Build();
 
             // Create the uri for the alarm file                 
-            Android.Net.Uri alarmUri = Android.Net.Uri.Parse($"{ContentResolver.SchemeAndroidResource}://{Application.Context.PackageName}/{Resource.Raw.soundFile}");
+            Android.Net.Uri alarmUri = Android.Net.Uri.Parse($"{ContentResolver.SchemeAndroidResource}://{Application.Context.PackageName}/{Resource.Raw.soundfile}");
 
             var channel = new NotificationChannel(CHANNEL_ID, "SelfTrackerNotificationChannel", NotificationImportance.Default)
             {
                 Description = "Notification Channel"
             };
-            channel.SetSound(alarmUri, alarmAttributes);
+            //channel.SetSound(alarmUri, alarmAttributes);
 
             var notificationManager = (NotificationManager)GetSystemService(NotificationService);
             notificationManager.CreateNotificationChannel(channel);

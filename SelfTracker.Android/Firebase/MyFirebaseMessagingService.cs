@@ -41,7 +41,7 @@ namespace SelfTracker.Droid.Firebase
                 .SetUsage(AudioUsageKind.Notification).Build();
 
             // Create the uri for the alarm file                 
-            Android.Net.Uri alarmUri = Android.Net.Uri.Parse($"{ ContentResolver.SchemeAndroidResource}://{Application.Context.PackageName}/{Resource.Raw.soundFile}");
+            Android.Net.Uri alarmUri = Android.Net.Uri.Parse($"{ ContentResolver.SchemeAndroidResource}://{Application.Context.PackageName}/{Resource.Raw.soundfile}");
 
             var pendingIntent = PendingIntent.GetActivity(this, MainActivity.NOTIFICATION_ID, intent, PendingIntentFlags.OneShot);
 

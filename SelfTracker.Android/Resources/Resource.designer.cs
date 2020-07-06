@@ -11436,7 +11436,7 @@ namespace SelfTracker.Droid
 		{
 			
 			// aapt resource value: 0x7F0D0000
-			public const int soundFile = 2131558400;
+			public const int soundfile = 2131558400;
 			
 			static Raw()
 			{

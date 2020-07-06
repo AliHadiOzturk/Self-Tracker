@@ -140,7 +140,7 @@
     <AndroidResource Include="Resources\drawable\watermelon.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\raw\soundFile.mp3" />
+    <AndroidResource Include="Resources\raw\soundfile.mp3" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
