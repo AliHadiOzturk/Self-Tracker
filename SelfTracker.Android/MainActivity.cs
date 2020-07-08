@@ -11,6 +11,7 @@ using Firebase.Iid;
 using Firebase.Messaging;
 using Android.Media;
 using Android.Content.PM;
+using Plugin.LocalNotification;
 
 namespace SelfTracker.Droid
 {
@@ -18,7 +19,7 @@ namespace SelfTracker.Droid
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         const string TAG = "MainActivity";
-        internal static readonly string CHANNEL_ID = "my_notification_channel";
+        internal static readonly string CHANNEL_ID = "SelfTrackerChannelId";
         internal static readonly int NOTIFICATION_ID = 100;
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -37,10 +38,15 @@ namespace SelfTracker.Droid
 
             #endregion
 
-
-
+            #region Local Notification
+            // Must create a Notification Channel when API >= 26
+            // you can created multiple Notification Channels with different names.
+            //NotificationCenter.CreateNotificationChannel();
+            #endregion
 
             base.OnCreate(savedInstanceState);
+
+            DIPS.Xamarin.UI.Android.Library.Initialize();
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());

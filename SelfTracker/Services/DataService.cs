@@ -50,7 +50,6 @@ namespace SelfTracker.Services
             else return 0;
         }
 
-
         public async Task<List<DataWrapper>> GetEvents(DateTime selectedDate)
         {
             List<DataWrapper> response = new List<DataWrapper>();

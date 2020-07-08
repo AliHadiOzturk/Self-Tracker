@@ -14,6 +14,8 @@ namespace SelfTracker.Models
         [Required(ErrorMessage = "Ad boş olamaz")]
         public string Name { get; set; }
         public String Description { get; set; }
+        public bool IsReminder { get; set; } = false;
+        public DateTime Time { get; set; }
         public int DayId { get; set; }
         //public int MyProperty { get; set; }
     }

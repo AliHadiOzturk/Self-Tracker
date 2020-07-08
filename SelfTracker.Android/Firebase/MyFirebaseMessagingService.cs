@@ -47,7 +47,7 @@ namespace SelfTracker.Droid.Firebase
 
             var notificationBuilder = new NotificationCompat.Builder(this, MainActivity.CHANNEL_ID)
                                       .SetSmallIcon(Resource.Drawable.watermelon)
-                                      .SetSound(alarmUri)
+                                      //.SetSound(alarmUri)
                                       .SetContentTitle("Self Tracker")
                                       .SetContentText(messageBody)
                                       .SetAutoCancel(true)

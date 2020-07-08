@@ -22,6 +22,7 @@ namespace SelfTracker.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            DIPS.Xamarin.UI.iOS.Library.Initialize();
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 

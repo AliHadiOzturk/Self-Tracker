@@ -13,6 +13,7 @@ namespace SelfTracker
     {
         public App()
         {
+            DIPS.Xamarin.UI.Library.Initialize();
             VersionTracking.Track();
 
             Device.SetFlags(new[] { "SwipeView_Experimental" });

@@ -5,19 +5,53 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              mc:Ignorable="d"
              xmlns:plugin="clr-namespace:Xamarin.Plugin.Calendar.Controls;assembly=Xamarin.Plugin.Calendar" xmlns:controls="clr-namespace:SelfTracker.Controls" xmlns:vm="clr-namespace:SelfTracker.ViewModels" xmlns:behavior="clr-namespace:SelfTracker.Behavior"
+             xmlns:dxui="http://dips.xamarin.ui.com"
              x:Name="Calendar"
              x:Class="SelfTracker.Views.CalendarPage" NavigationPage.HasNavigationBar="False">
 
     <ContentPage.BindingContext>
         <vm:CalendarPageViewModel />
     </ContentPage.BindingContext>
+    <dxui:ModalityLayout>
+        <dxui:ModalityLayout.Behaviors>
+            <dxui:FloatingActionMenuBehaviour Size="60"
+                                              ExpandButtonBackgroundColor="#fc446c"
+                                              ExpandButtonText="{StaticResource PlusIcon}"
+                                              ExpandButtonFontFamily="FontAwesome"
+                                              ExpandButtonFontSize="25"
+                                              ExpandButtonTextColor="White"
+                                              IsOpen="{Binding IsFloatMenuOpen,Mode=TwoWay}"
+                                              
+                                              XPosition=".95"
+                                              YPosition=".95">
+                <dxui:MenuButton BackgroundColor="#fc446c"
+                        Text="{StaticResource CalendarEventIcon}"
+                        TextColor="White"
+                        FontSize="14"
+                        Command="{Binding AddEventCommand}"
+                        FontFamily="FontAwesome"
+                        Title="Olay Ekle"
+                        TitleTextColor="Black"
+                        TitleFontSize="16"/>
+                <dxui:MenuButton BackgroundColor="#fc446c"
+                        Text="{StaticResource ReminderIcon}"
+                        FontFamily="FontAwesome"
+                        Command="{Binding AddReminderCommand}"
+                        TextColor="White"
+                        FontSize="14"
+                        Title="Hatırlatıcı Ekle"
+                        TitleTextColor="Black"
+                        TitleFontSize="16"/>
 
-    <!--DaysLabelStyle="{StaticResource daysLabelStyle}"
+            </dxui:FloatingActionMenuBehaviour>
+        </dxui:ModalityLayout.Behaviors>
+        <!-- page content goes here -->
+        <!--DaysLabelStyle="{StaticResource daysLabelStyle}"
         DaysTitleColor="Orange"
-    DaysTitleLabelStyle="{StaticResource daysTitleLabelStyle}"
+        DaysTitleLabelStyle="{StaticResource daysTitleLabelStyle}"
         DaysTitleHeight="40"-->
-    <AbsoluteLayout Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-        <plugin:Calendar
+        <AbsoluteLayout Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <plugin:Calendar
         Padding="10,0"
         AnimateCalendar="True"
         Culture="{Binding Culture}"
@@ -49,24 +83,26 @@
         VerticalOptions="FillAndExpand"
         YearLabelColor="#ff0037">
 
-            <plugin:Calendar.HeaderSectionTemplate>
-                <DataTemplate>
-                    <controls:CalendarHeader ChangeDateCommand="{Binding BindingContext.ChangeDateCommand,Source={x:Reference Calendar}}" />
-                </DataTemplate>
-            </plugin:Calendar.HeaderSectionTemplate>
+                <plugin:Calendar.HeaderSectionTemplate>
+                    <DataTemplate>
+                        <controls:CalendarHeader ChangeDateCommand="{Binding BindingContext.ChangeDateCommand,Source={x:Reference Calendar}}" />
+                    </DataTemplate>
+                </plugin:Calendar.HeaderSectionTemplate>
 
-            <plugin:Calendar.FooterSectionTemplate>
-                <DataTemplate>
-                    <controls:CalendarFooter ChangeEmojiCommand="{Binding BindingContext.ChangeEmojiCommand,Source={x:Reference Calendar}}" AddEventCommand="{Binding BindingContext.AddEventCommand,Source={x:Reference Calendar}}" />
-                </DataTemplate>
-            </plugin:Calendar.FooterSectionTemplate>
+                <plugin:Calendar.FooterSectionTemplate>
+                    <DataTemplate>
+                        <controls:CalendarFooter ChangeEmojiCommand="{Binding BindingContext.ChangeEmojiCommand,Source={x:Reference Calendar}}" AddEventCommand="{Binding BindingContext.AddEventCommand,Source={x:Reference Calendar}}" />
+                    </DataTemplate>
+                </plugin:Calendar.FooterSectionTemplate>
 
-            <plugin:Calendar.EventTemplate>
-                <DataTemplate>
-                    <!--CalenderEventCommand="{Binding BindingContext.EventSelectedCommand, Source={x:Reference advancedCalendarPage}}"-->
-                    <controls:CalendarEvent  DeleteEventCommand="{Binding BindingContext.DeleteEventCommand,Source={x:Reference Calendar}}"/>
-                </DataTemplate>
-            </plugin:Calendar.EventTemplate>
-        </plugin:Calendar>
-    </AbsoluteLayout>
+                <plugin:Calendar.EventTemplate>
+                    <DataTemplate>
+                        <!--CalenderEventCommand="{Binding BindingContext.EventSelectedCommand, Source={x:Reference advancedCalendarPage}}"-->
+                        <controls:CalendarEvent  DeleteEventCommand="{Binding BindingContext.DeleteEventCommand,Source={x:Reference Calendar}}"/>
+                    </DataTemplate>
+                </plugin:Calendar.EventTemplate>
+            </plugin:Calendar>
+        </AbsoluteLayout>
+    </dxui:ModalityLayout>
+
 </ContentPage>

@@ -46,6 +46,7 @@ namespace SelfTracker.ViewModels
         {
             Init();
             Event = new Event();
+            Event.IsReminder = false;
         }
 
 

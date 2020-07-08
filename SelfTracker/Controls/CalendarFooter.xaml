@@ -32,7 +32,7 @@
             HorizontalOptions="FillAndExpand"
             VerticalOptions="CenterAndExpand"
             VerticalTextAlignment="Center" />
-            <Label FontFamily="FontAwesome" 
+            <!--<Label FontFamily="FontAwesome" 
                    Text="{StaticResource PlusIcon}" 
                    FontAttributes="Bold" 
                    TextColor="DarkCyan" 
@@ -43,7 +43,7 @@
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer Tapped="AddEvent_Tapped"></TapGestureRecognizer>
                 </Label.GestureRecognizers>
-            </Label>
+            </Label>-->
         </StackLayout>
         <Label
             x:Name="showHideLabel"

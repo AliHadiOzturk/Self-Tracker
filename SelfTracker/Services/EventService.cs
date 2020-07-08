@@ -41,6 +41,8 @@ namespace SelfTracker.Services
             return await Connection.Table<Event>().Where(e => e.DayId == dayId).ToListAsync();
         }
 
+        public async Task<Event> GetLastSavedEvent() => await Connection.Table<Event>().OrderByDescending(item => item.Id).FirstOrDefaultAsync();
+
         public async Task<List<Event>> GetAll() => await Connection.Table<Event>().ToListAsync();
     }
 }

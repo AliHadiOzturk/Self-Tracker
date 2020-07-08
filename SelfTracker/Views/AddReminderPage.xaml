@@ -6,8 +6,8 @@
              xmlns:controls="clr-namespace:SelfTracker.CustomControls" 
              xmlns:vm="clr-namespace:SelfTracker.ViewModels" xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              mc:Ignorable="d"
-             x:Class="SelfTracker.Views.AddEventPage" x:Name="EventPage" Title="{Binding Title}" NavigationPage.HasBackButton="True">
-    
+             x:Class="SelfTracker.Views.AddReminderPage" x:Name="ReminderPage" Title="{Binding Title}" NavigationPage.HasBackButton="True">
+
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Kaydet" Command="{Binding SaveEventCommand}"></ToolbarItem>
     </ContentPage.ToolbarItems>
@@ -34,6 +34,25 @@
                 </Frame>
                 <Label 
                     x:Name="Event_DateError"
+                    IsVisible="false"
+                    Style="{StaticResource ErrorLabelStyle}"   />
+            </StackLayout>
+            <StackLayout>
+                <Label 
+                    Text="Hatırlacı Saati" 
+                    FontSize="Small"
+                    Margin="10,10,0,0"/>
+                <yummy:PancakeView
+                        Padding="10,0,0,0"
+                        BackgroundColor="White"
+                        BorderThickness="1"
+                        CornerRadius="15"
+                        Elevation="3"
+                        HeightRequest="50">
+                    <controls:BorderlessTimePicker Time="{Binding Time,Mode=TwoWay}" />
+                </yummy:PancakeView>
+                <Label 
+                    x:Name="Event_TimeError"
                     IsVisible="false"
                     Style="{StaticResource ErrorLabelStyle}"   />
             </StackLayout>

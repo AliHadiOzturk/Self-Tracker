@@ -1,6 +1,7 @@
 ﻿using MvvmHelpers;
 using MvvmHelpers.Commands;
 using MvvmHelpers.Interfaces;
+using Plugin.LocalNotification;
 using SelfTracker.Controls;
 using SelfTracker.Models;
 using SelfTracker.Services;
@@ -30,6 +31,10 @@ namespace SelfTracker.ViewModels
         public IAsyncCommand SwipeRightCommand => new AsyncCommand(SwipeRight);
         public ICommand SwipeUpCommand => new Xamarin.Forms.Command(() => { MonthYear = DateTime.Today; });
         public IAsyncCommand AddEventCommand => new AsyncCommand(AddEvent);
+        public IAsyncCommand AddReminderCommand => new AsyncCommand(AddReminder);
+
+
+
         public IAsyncCommand ChangeEmojiCommand => new AsyncCommand(ChangeEmoji);
 
 
@@ -82,6 +87,15 @@ namespace SelfTracker.ViewModels
             set { SetProperty(ref _emoji, value); }
         }
 
+        private bool _isFloatMenuOpen;
+
+        public bool IsFloatMenuOpen
+        {
+            get { return _isFloatMenuOpen; }
+            set { SetProperty(ref _isFloatMenuOpen, value); }
+        }
+
+
 
         public CalendarPageViewModel()
         {
@@ -116,20 +130,47 @@ namespace SelfTracker.ViewModels
 
         private async Task AddEvent()
         {
+
             var vm = new AddEventViewModel()
             {
                 DateToSave = this.SelectedDate,
-                SelectedDate = this.SelectedDate.ToString("dd/MM/yyyy")
+                SelectedDate = this.SelectedDate.ToString("dd/MM/yyyy"),
+                Title = "Olay Ekle",
             };
             var pageToLoad = new AddEventPage(vm);
             pageToLoad.Disappearing += async (sender, args) => await GetEvents();
 
             await App.Current.MainPage.Navigation.PushModalAsync(new NavigationPage(pageToLoad), true);
+            this.IsFloatMenuOpen = false;
+        }
+
+        private async Task AddReminder()
+        {
+
+            if (this.SelectedDate >= DateTime.Now.Date)
+            {
+                var vm = new AddReminderViewModel()
+                {
+                    Title = "Hatırlatıcı Ekle",
+                    DateToSave = this.SelectedDate,
+                    SelectedDate = this.SelectedDate.ToString("dd/MM/yyyy"),
+                };
+                var pageToLoad = new AddReminderPage(vm);
+                pageToLoad.Disappearing += async (sender, args) => await GetEvents();
+
+                await App.Current.MainPage.Navigation.PushModalAsync(new NavigationPage(pageToLoad), true);
+                this.IsFloatMenuOpen = false;
+            }
+            else
+                await App.Current.MainPage.DisplayAlert("Hata!", "Seçtiğiniz tarih şimdiki tarihten önce olamaz lütfen dikkat edin :)", "Tamam");
+
         }
 
         private async Task DeleteEvent(Event data)
         {
             await EventService.Delete(data);
+            NotificationCenter.Current.Cancel(data.Id);
+            //CrossLocalNotifications.Current.Cancel(data.Id);
             await GetEvents();
         }
 

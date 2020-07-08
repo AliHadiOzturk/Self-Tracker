@@ -27,27 +27,36 @@
             BorderGradientStartColor="#ff0037"
             BorderGradientEndColor="#ff3661"
             >
-        <StackLayout
+            <StackLayout
         Padding="0,0,0,0"
         HorizontalOptions="FillAndExpand"
         VerticalOptions="FillAndExpand">
-            <!--<Frame BorderColor="Black" CornerRadius="5">-->
-            <Label 
+                <!--<Frame BorderColor="Black" CornerRadius="5">-->
+                <Label 
                 FontAttributes="Bold" 
                 FontSize="Medium" 
                 Text="{Binding Name}" 
                 TextColor="Black">
-            </Label>
-            <Label
+                </Label>
+                <Label
             FontSize="Small"
             LineBreakMode="WordWrap"
             Text="{Binding Description}" />
-            <!--<BoxView HeightRequest="1" Color="#ff0037"></BoxView>-->
-            <!--</Frame>-->
-            <StackLayout.GestureRecognizers>
-                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
-            </StackLayout.GestureRecognizers>
-        </StackLayout>
+                <StackLayout IsVisible="{Binding IsReminder}" VerticalOptions="CenterAndExpand" Orientation="Horizontal">
+                    <Label
+                        FontFamily="FontAwesome"
+                        Padding="0,3,0,0"
+                        Text="{StaticResource TimerIcon}"/>
+                    <Label 
+                        Text="{Binding Time}"
+                        />
+                </StackLayout>
+                <!--<BoxView HeightRequest="1" Color="#ff0037"></BoxView>-->
+                <!--</Frame>-->
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
         </yummy:PancakeView>
     </SwipeView>
 </ContentView>

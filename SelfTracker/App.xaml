@@ -4,12 +4,16 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:dxui="http://dips.xamarin.ui.com"
              x:Class="SelfTracker.App">
     <Application.Resources>
         <!--<x:String x:Key="CheckIcon">&#xf00c;</x:String>-->
         <x:String x:Key="PlusIcon">&#xf055;</x:String>
         <x:String x:Key="DownArrow">&#xf063;</x:String>
         <x:String x:Key="CloseIcon">&#xf410;</x:String>
+        <x:String x:Key="CalendarEventIcon">&#xf274;</x:String>
+        <x:String x:Key="ReminderIcon">&#xf0f3;</x:String>
+        <x:String x:Key="TimerIcon">&#xf017;</x:String>
 
         <Style TargetType="NavigationPage">
             <Setter Property="BarBackgroundColor" Value="#ff0037"></Setter>

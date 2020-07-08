@@ -4,6 +4,7 @@ using SelfTracker.Models;
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -36,20 +37,22 @@ namespace SelfTracker.Helpers
         }
         async Task ProcessChanges()
         {
-            var res = await Connection.CreateTableAsync<DayModel>(CreateFlags.None);
+            var res = await Connection.CreateTableAsync<Event>(CreateFlags.None);
+            Debug.WriteLine("Create Table Result ->", res.ToString());
         }
         async Task InitializeAsync()
         {
             //if (!initialized)
             //{
-            if (!Connection.TableMappings.Any(m => m.MappedType.Name == typeof(Event).Name))
-            {
-                await Connection.CreateTablesAsync(CreateFlags.None, typeof(YearModel)).ConfigureAwait(false);
-                await Connection.CreateTablesAsync(CreateFlags.None, typeof(MonthModel)).ConfigureAwait(false);
-                await Connection.CreateTablesAsync(CreateFlags.None, typeof(DayModel)).ConfigureAwait(false);
-                await Connection.CreateTablesAsync(CreateFlags.None, typeof(Event)).ConfigureAwait(false);
-                //initialized = true;
-            }
+            //if (!Connection.TableMappings.Any(m => m.MappedType.Name == typeof(Event).Name))
+            //{
+            await Connection.CreateTablesAsync(CreateFlags.None, typeof(YearModel)).ConfigureAwait(false);
+            await Connection.CreateTablesAsync(CreateFlags.None, typeof(MonthModel)).ConfigureAwait(false);
+            await Connection.CreateTablesAsync(CreateFlags.None, typeof(DayModel)).ConfigureAwait(false);
+            await Connection.CreateTablesAsync(CreateFlags.None, typeof(Event)).ConfigureAwait(false);
+
+            //initialized = true;
+            //}
             //}
         }
     }
