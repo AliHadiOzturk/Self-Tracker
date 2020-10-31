@@ -98,7 +98,7 @@
                 <plugin:Calendar.EventTemplate>
                     <DataTemplate>
                         <!--CalenderEventCommand="{Binding BindingContext.EventSelectedCommand, Source={x:Reference advancedCalendarPage}}"-->
-                        <controls:CalendarEvent  DeleteEventCommand="{Binding BindingContext.DeleteEventCommand,Source={x:Reference Calendar}}"/>
+                        <controls:CalendarEvent  DeleteEventCommand="{Binding BindingContext.DeleteEventCommand,Source={x:Reference Calendar}}" />
                     </DataTemplate>
                 </plugin:Calendar.EventTemplate>
             </plugin:Calendar>

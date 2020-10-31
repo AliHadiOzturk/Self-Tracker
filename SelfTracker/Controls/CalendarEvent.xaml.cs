@@ -10,8 +10,8 @@ namespace SelfTracker.Controls
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CalendarEvent : ContentView
     {
-        public static BindableProperty CalenderEventCommandProperty =
-            BindableProperty.Create(nameof(CalenderEventCommand), typeof(ICommand), typeof(CalendarEvent), null);
+        public static BindableProperty CalendarEventCommandProperty =
+            BindableProperty.Create(nameof(CalendarEventCommand), typeof(ICommand), typeof(CalendarEvent), null);
 
         public static BindableProperty DeleteEventCommandProperty =
             BindableProperty.Create(nameof(DeleteEventCommand), typeof(IAsyncCommand<Event>), typeof(CalendarEvent), null);
@@ -20,10 +20,10 @@ namespace SelfTracker.Controls
             InitializeComponent();
         }
 
-        public ICommand CalenderEventCommand
+        public ICommand CalendarEventCommand
         {
-            get => (ICommand)GetValue(CalenderEventCommandProperty);
-            set => SetValue(CalenderEventCommandProperty, value);
+            get => (ICommand)GetValue(CalendarEventCommandProperty);
+            set => SetValue(CalendarEventCommandProperty, value);
         }
 
         public IAsyncCommand<Event> DeleteEventCommand
@@ -36,7 +36,7 @@ namespace SelfTracker.Controls
         {
             if (BindingContext is Event eventModel)
             {
-                CalenderEventCommand?.Execute(eventModel);
+                CalendarEventCommand?.Execute(eventModel);
             }
         }
 
@@ -45,6 +45,11 @@ namespace SelfTracker.Controls
             if (BindingContext is Event eventModel)
                 await DeleteEventCommand?.ExecuteAsync(eventModel);
 
+        }
+
+        private void SwipeGestureRecognizer_Swiped(object sender, SwipedEventArgs e)
+        {
+            swipeView.Open(OpenSwipeItem.LeftItems);
         }
     }
 }

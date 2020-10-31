@@ -4,22 +4,30 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView">
-    <SwipeView Margin="0,0,0,5">
+    <SwipeView Margin="0,0,0,5" x:Name="swipeView" >
         <SwipeView.LeftItems>
-            <SwipeItems Mode="Execute" SwipeBehaviorOnInvoked="RemainOpen">
-                <SwipeItemView Invoked="SwipeItem_Invoked" WidthRequest="200" BackgroundColor="Red">
-                    <Label Text="Sil"
+            <SwipeItems Mode="Execute">
+                <!--<SwipeItem Text="Sil"
+                       BackgroundColor="Red"
+                       Invoked="SwipeItem_Invoked" />-->
+                <SwipeItemView Invoked="SwipeItem_Invoked"  BackgroundColor="Red">
+                    <StackLayout WidthRequest="100">
+                        <Label Text="Sil"
                            TextColor="Black"
                            FontAttributes="Bold"
                            VerticalOptions="Center"
                            VerticalTextAlignment="Center"
                            HorizontalTextAlignment="Center"
-                           HorizontalOptions="Start" />
+                           HorizontalOptions="Center" />
+                    </StackLayout>
                 </SwipeItemView>
             </SwipeItems>
         </SwipeView.LeftItems>
+        <Grid HeightRequest="60"
+          WidthRequest="300">
         <yummy:PancakeView 
             Padding="5"
+            Margin="5,0,0,0"
             CornerRadius="5"
             Elevation="1"
             BorderThickness="2"
@@ -55,8 +63,10 @@
                 <!--</Frame>-->
                 <StackLayout.GestureRecognizers>
                     <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                    <SwipeGestureRecognizer Direction="Right" Swiped="SwipeGestureRecognizer_Swiped"></SwipeGestureRecognizer>
                 </StackLayout.GestureRecognizers>
             </StackLayout>
         </yummy:PancakeView>
+        </Grid>
     </SwipeView>
 </ContentView>
